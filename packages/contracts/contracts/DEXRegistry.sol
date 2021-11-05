@@ -37,7 +37,7 @@ contract DEXRegistry is Ownable {
             pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }
 
-        // DEXTokenPool(pair).initialize(token0, token1);
+        DEXTokenPool(pair).initialize(token0, token1);
 
         registry[token0][token1] = pair;
         registry[token1][token0] = pair;
