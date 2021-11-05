@@ -18,7 +18,7 @@ contract DEXTokenPool {
 
     // Store the contribution of each user in this pool
     uint256 public totalLiquidity;
-    mapping(address => uint256) public liquidity;
+    mapping(address => uint256) public balanceOf;
 
     /**
      * DEXTokenPool Constructor
@@ -72,17 +72,16 @@ contract DEXTokenPool {
         uint256 amount1,
         bool token0IsPriority
     ) public view returns (uint256 correctedAmount0, uint256 correctedAmount1) {
-        // Check if is the first call on this pool
         if (reserves0 == 0 && reserves1 == 0) {
             (correctedAmount0, correctedAmount1) = (amount0, amount1);
         } else {
-            // @TODO: Set the correct usage of `token0IsPriority` when token1 should be the priority
-            uint256 amount1Optimal = quote(amount0, reserves0, reserves1);
-            if (token0IsPriority && amount1Optimal <= amount1) {
+            if (token0IsPriority) {
+                uint256 amount1Optimal = quote(amount0, reserves0, reserves1);
+                require(amount1Optimal <= amount1, "Don't have enough funds of token1");
                 (correctedAmount0, correctedAmount1) = (amount0, amount1Optimal);
             } else {
                 uint256 amount0Optimal = quote(amount1, reserves1, reserves0);
-                assert(amount0Optimal <= amount0);
+                require(amount0Optimal <= amount0, "Don't have enough funds of token0");
                 (correctedAmount0, correctedAmount1) = (amount0Optimal, amount1);
             }
         }
@@ -99,7 +98,7 @@ contract DEXTokenPool {
         uint256 amount0,
         uint256 amount1,
         bool token0IsPriority
-    ) public returns (uint256 correctAmount0, uint256 correctAmount1) {
+    ) external returns (uint256 correctAmount0, uint256 correctAmount1) {
         // Validation
         require(amount0 > 0 && amount1 > 0, "You need to supply both tokens");
 
@@ -127,11 +126,40 @@ contract DEXTokenPool {
                 (correctAmount1 * _totalLiquidity) / reserves1
             );
         }
-        liquidity[msg.sender] += liquidity;
+        balanceOf[msg.sender] += liquidity;
         totalLiquidity += liquidity;
 
         // Update the reserves
         reserves0 += correctAmount0;
         reserves1 += correctAmount1;
+    }
+
+    /**
+     * Remove Liquidity from Pool
+     */
+    function withdraw(uint256 liquidityAmount) external returns (uint256 amount0, uint256 amount1) {
+        address _token0 = token0;
+        address _token1 = token1;
+        uint256 balance0 = IERC20(_token0).balanceOf(address(this));
+        uint256 balance1 = IERC20(_token1).balanceOf(address(this));
+        uint256 _totalLiquidity = totalLiquidity;
+
+        // Check if user has enough liquidity
+        require(liquidityAmount <= balanceOf[msg.sender], "You don't have enough liquidity shares");
+        balanceOf[msg.sender] -= liquidityAmount;
+
+        // Convert Liquidity to amount of tokens
+        amount0 = (liquidityAmount * balance0) / _totalLiquidity;
+        amount1 = (liquidityAmount * balance1) / _totalLiquidity;
+        require(amount0 > 0 && amount1 > 0, "You need to burn more liquidity");
+
+        // Update the reserves
+        totalLiquidity -= liquidityAmount;
+        reserves0 -= amount0;
+        reserves1 -= amount1;
+
+        // Transfer Tokens
+        require(IERC20(token0).transfer(msg.sender, amount0), "Failed transfer token0");
+        require(IERC20(token1).transfer(msg.sender, amount1), "Failed transfer token1");
     }
 }
