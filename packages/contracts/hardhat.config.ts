@@ -42,6 +42,7 @@ const config: HardhatUserConfig = {
     hardhat: {
       initialBaseFeePerGas: 0,
       accounts: accounts(),
+      chainId: 1337,
     },
     localhost: {
       url: nodeUrl("localhost"),
@@ -76,7 +77,7 @@ const config: HardhatUserConfig = {
   },
   typechain: {
     target: "ethers-v5",
-    outDir: "typechain",
+    outDir: "../swap-app/types/typechain",
   },
   gasReporter: {
     enabled: !!process.env.REPORT_GAS,
