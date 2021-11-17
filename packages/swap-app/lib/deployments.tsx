@@ -22,7 +22,15 @@ export type ExportedDeployments = Partial<{
   [key in ChainId]: ExportedNetworkDeployment;
 }>;
 
-export const DeploymentsContext = createContext<ExportedDeployments>({});
+interface ExportedDeploymentsWithCurrent extends ExportedDeployments {
+  current: ExportedNetworkDeployment | null;
+}
+
+export const DeploymentsContext = createContext<ExportedDeploymentsWithCurrent>(
+  {
+    current: null,
+  }
+);
 
 export function createDeploymentSettings<T>(obj: T): ExportedDeployments {
   const deploymentsSettings: ExportedDeployments = {};
@@ -35,3 +43,28 @@ export function createDeploymentSettings<T>(obj: T): ExportedDeployments {
 
   return deploymentsSettings;
 }
+
+interface DeploymentsProviderProps {
+  settings: ExportedDeployments;
+}
+
+export const DeploymentsProvider: FC<DeploymentsProviderProps> = ({
+  children,
+  settings,
+}) => {
+  const { chainId } = useEthers();
+
+  const value: ExportedDeploymentsWithCurrent = {
+    ...settings,
+    current:
+      typeof chainId !== "undefined" && typeof settings[chainId] !== "undefined"
+        ? settings[chainId]!
+        : null,
+  };
+
+  return (
+    <DeploymentsContext.Provider value={value}>
+      {children}
+    </DeploymentsContext.Provider>
+  );
+};

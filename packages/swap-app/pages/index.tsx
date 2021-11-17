@@ -1,37 +1,31 @@
-import type { NextPage } from "next";
-import { useEtherBalance, useEthers, useTokenBalance } from "@usedapp/core";
-import { formatEther, formatUnits } from "@ethersproject/units";
 import { useContext } from "react";
+import { useEthers } from "@usedapp/core";
+import type { NextPage } from "next";
 import { DeploymentsContext } from "lib/deployments";
+import { HStack, Flex, Container } from "@chakra-ui/react";
+import { TokenBalance } from "components/TokenBalance";
 
 const Home: NextPage = () => {
   const deploymentsContext = useContext(DeploymentsContext);
-
-  const { activateBrowserWallet, account, library, deactivate, chainId } =
-    useEthers();
-  const etherBalance = useEtherBalance(account);
-
-  const tokenBalance = useTokenBalance(
-    "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    account
-  );
-
-  if (typeof library === "undefined") {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  const { activateBrowserWallet, account, deactivate, library } = useEthers();
 
   return (
-    <div>
-      {!account && (
-        <button onClick={() => activateBrowserWallet()}> Connect </button>
-      )}
-      {account && <button onClick={deactivate}> Disconnect </button>}
-      {account && <p>Account: {account}</p>}
-    </div>
+    <Container maxW={"3xl"}>
+      <HStack mt={4} w="100%" spacing={8} justify="space-between">
+        {typeof library !== "undefined" && deploymentsContext.current !== null && (
+          <>
+            <TokenBalance
+              name="Token A"
+              address={deploymentsContext.current.contracts.TokenA.address}
+            />
+            <TokenBalance
+              name="Token B"
+              address={deploymentsContext.current.contracts.TokenB.address}
+            />
+          </>
+        )}
+      </HStack>
+    </Container>
   );
 };
 

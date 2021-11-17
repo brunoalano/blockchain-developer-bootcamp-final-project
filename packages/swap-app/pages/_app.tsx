@@ -1,8 +1,10 @@
-import { createContext } from "react";
 import type { AppProps } from "next/app";
 import { ChainId, DAppProvider, FullConfig } from "@usedapp/core";
+import { ChakraProvider } from "@chakra-ui/react";
 import deployments from "deployments.json";
-import { createDeploymentSettings, DeploymentsContext } from "lib/deployments";
+import { createDeploymentSettings, DeploymentsProvider } from "lib/deployments";
+import { Header } from "components/Header";
+import theme from "lib/theme";
 
 const deploymentSettings =
   createDeploymentSettings<typeof deployments>(deployments);
@@ -20,11 +22,14 @@ const config: Partial<FullConfig> = {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <DeploymentsContext.Provider value={deploymentSettings}>
+    <ChakraProvider theme={theme}>
       <DAppProvider config={config}>
-        <Component {...pageProps} />
+        <DeploymentsProvider settings={deploymentSettings}>
+          <Header />
+          <Component {...pageProps} />
+        </DeploymentsProvider>
       </DAppProvider>
-    </DeploymentsContext.Provider>
+    </ChakraProvider>
   );
 }
 
