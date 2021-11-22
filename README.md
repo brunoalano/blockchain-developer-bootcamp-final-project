@@ -1,6 +1,8 @@
 #  Blockchain Developer Bootcamp: Final Project
 This project will implement an Automated Market Maker (AMM) application based on the Uniswap V2 model.
 
+**[Screencast Link: https://cln.sh/ZUYdmE](https://cln.sh/ZUYdmE)**
+
 **Public Ethereum Account for Certification as NFT: `0x28751d69ca780F7E7520Dc7C131e91ca2ffc6696`**
 
 ## Useful Links
