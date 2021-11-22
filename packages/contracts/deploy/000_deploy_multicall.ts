@@ -15,3 +15,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 };
 export default func;
 func.tags = ["Multicall"];
+
+func.skip = async (hre) => {
+  const currentChain = await hre.getChainId();
+
+  // Deploy only to localhost
+  return currentChain !== "1337";
+};

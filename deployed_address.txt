@@ -1,0 +1,24 @@
+You can check the "packages/swap-app/deployments.json" to see all deployed addresses.
+
+Ropsten Test Net
+---------------------------------
+TokenA: 0xE546a083C0a8C5c2A71b43d4F974EFE14bBc6E49
+TokenB: 0x196A16ee8e52a4f22d1cECaEB0e895a0D0033f37
+TokenC: 0x162e4E31Cb88517bE5e321f95f84c1bA801B3Ec0
+TokenD: 0x7c187f66755155d92bb16Cc090242E00D438D30a
+DEXRegistry: 0x84e6092Ff9737B5da254A6DB6367F073A78F2fAb
+
+
+Pool Addresses (generated through DEXRegistry) on Ropsten (CREATE2):
+--------------------------------------------------------------------
+
+TokenA <> TokenB:
+-----------------
+Pool Address: 0x096b3D271b2D380275458a9F8f1209b9A2C96F69
+Transaction: https://ropsten.etherscan.io/tx/0x5f83186180069908a206ed13468a90b8fa63c457c2f80c33769d6f374c5900c6
+
+
+TokenC <> TokenA:
+-----------------
+Pool Address: 0x897138a64fe68bcd73bdaac5be389df5442f6acf
+Transaction: https://ropsten.etherscan.io/tx/0x1895ed2e46bd8779d8ff91f2bdb64f21a2412a735ff8425c9dcb5fb017c68ca1
