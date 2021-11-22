@@ -1,14 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Heading,
-  Avatar,
   Box,
-  Center,
   Text,
   Stack,
   Button,
-  Link,
-  Badge,
   useColorModeValue,
   Stat,
   StatLabel,
@@ -16,16 +12,15 @@ import {
   StatHelpText,
   Spinner,
 } from "@chakra-ui/react";
-import { useContractFunction, useEthers, useTokenBalance } from "@usedapp/core";
+import { useEthers, useTokenBalance } from "@usedapp/core";
 import { formatUnits } from "@ethersproject/units";
-import { Token, Token__factory } from "types/typechain";
-import { DeploymentsContext } from "lib/deployments";
+import { Token__factory } from "types/typechain";
 import { BigNumber } from "@ethersproject/bignumber";
-import { Contract } from "@ethersproject/contracts";
+import { useContractFunction } from "lib/utils";
 
 interface TokenBalanceProps {
   name: string;
-  address: string | undefined;
+  address: string;
 }
 
 const Stats: React.FC<TokenBalanceProps> = ({ address }) => {
@@ -50,11 +45,10 @@ export const TokenBalance: React.FC<TokenBalanceProps> = ({
   const { account, library } = useEthers();
 
   const contract = Token__factory.connect(address!, library!.getSigner());
-  const { send } = useContractFunction(contract, "mint", {
-    transactionName: "Mint",
-  });
+  const { send } = useContractFunction(contract, "mint");
 
   const mintToken = async () => {
+    if (account === null || typeof account === "undefined") return;
     send(account, BigNumber.from(10).mul(BigNumber.from(10).pow(18)));
   };
 

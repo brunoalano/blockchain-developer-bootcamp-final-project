@@ -9,20 +9,25 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
-    "@chakra-ui/react": "^1.6.12",
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
-    "@usedapp/core": "^0.5.4",
-    "framer-motion": "^4.1.17",
-    "next": "12.0.3",
+    "@chakra-ui/react": "^1.7.2",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@usedapp/core": "^0.6.2",
+    "ethers": "^5.5.1",
+    "framer-motion": "^5.3.1",
+    "next": "12.0.4",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.20.1"
   },
   "devDependencies": {
-    "@types/node": "16.11.6",
-    "@types/react": "17.0.34",
-    "eslint": "7.32.0",
-    "eslint-config-next": "12.0.3",
-    "typescript": "4.4.4"
+    "@types/node": "16.11.9",
+    "@types/react": "17.0.35",
+    "eslint": "8.2.0",
+    "eslint-config-next": "12.0.4",
+    "typescript": "4.5.2"
+  },
+  "resolutions": {
+    "ethers": "5.5.1"
   }
 }

@@ -20,6 +20,20 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     args: ["TokenB", "TKB"],
     log: true,
   });
+
+  await deploy("TokenC", {
+    contract: "Token",
+    from: deployer,
+    args: ["TokenC", "TKC"],
+    log: true,
+  });
+
+  await deploy("TokenD", {
+    contract: "Token",
+    from: deployer,
+    args: ["TokenD", "TKD"],
+    log: true,
+  });
 };
 export default func;
 func.tags = ["ERC20Tokens"];

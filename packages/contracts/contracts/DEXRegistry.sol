@@ -22,6 +22,15 @@ contract DEXRegistry is Ownable {
         return pools.length;
     }
 
+    /**
+     * Retrieve a List of All Pools
+     *
+     * Useful for the frontend
+     */
+    function allPools() public view returns (address[] memory) {
+        return pools;
+    }
+
     function createPair(address tokenA, address tokenB) external returns (address pair) {
         require(tokenA != tokenB, "Must be different tokens");
         require(tokenA != address(0), "Invalid Token");

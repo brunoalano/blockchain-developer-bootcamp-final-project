@@ -21,6 +21,7 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface DEXRegistryInterface extends ethers.utils.Interface {
   functions: {
+    "allPools()": FunctionFragment;
     "countPools()": FunctionFragment;
     "createPair(address,address)": FunctionFragment;
     "owner()": FunctionFragment;
@@ -30,6 +31,7 @@ interface DEXRegistryInterface extends ethers.utils.Interface {
     "transferOwnership(address)": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "allPools", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "countPools",
     values?: undefined
@@ -53,6 +55,7 @@ interface DEXRegistryInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
 
+  decodeFunctionResult(functionFragment: "allPools", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "countPools", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "createPair", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
@@ -133,6 +136,8 @@ export class DEXRegistry extends BaseContract {
   interface: DEXRegistryInterface;
 
   functions: {
+    allPools(overrides?: CallOverrides): Promise<[string[]]>;
+
     countPools(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     createPair(
@@ -160,6 +165,8 @@ export class DEXRegistry extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
+
+  allPools(overrides?: CallOverrides): Promise<string[]>;
 
   countPools(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -189,6 +196,8 @@ export class DEXRegistry extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    allPools(overrides?: CallOverrides): Promise<string[]>;
+
     countPools(overrides?: CallOverrides): Promise<BigNumber>;
 
     createPair(
@@ -254,6 +263,8 @@ export class DEXRegistry extends BaseContract {
   };
 
   estimateGas: {
+    allPools(overrides?: CallOverrides): Promise<BigNumber>;
+
     countPools(overrides?: CallOverrides): Promise<BigNumber>;
 
     createPair(
@@ -283,6 +294,8 @@ export class DEXRegistry extends BaseContract {
   };
 
   populateTransaction: {
+    allPools(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     countPools(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     createPair(

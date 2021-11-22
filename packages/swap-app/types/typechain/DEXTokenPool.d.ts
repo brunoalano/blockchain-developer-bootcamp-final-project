@@ -21,39 +21,94 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface DEXTokenPoolInterface extends ethers.utils.Interface {
   functions: {
-    "balanceOf(address)": FunctionFragment;
-    "calculateAddLiquidityRatio(uint256,uint256,bool)": FunctionFragment;
-    "deposit(uint256,uint256,bool)": FunctionFragment;
+    "PRECISION()": FunctionFragment;
+    "getEquivalentToken0Estimate(uint256)": FunctionFragment;
+    "getEquivalentToken1Estimate(uint256)": FunctionFragment;
+    "getPoolDetails()": FunctionFragment;
+    "getSwapToken0Estimate(uint256)": FunctionFragment;
+    "getSwapToken0EstimateGivenToken1(uint256)": FunctionFragment;
+    "getSwapToken1Estimate(uint256)": FunctionFragment;
+    "getSwapToken1EstimateGivenToken0(uint256)": FunctionFragment;
+    "getWithdrawEstimate(uint256)": FunctionFragment;
     "initialize(address,address)": FunctionFragment;
+    "k()": FunctionFragment;
+    "provide(uint256,uint256)": FunctionFragment;
     "registry()": FunctionFragment;
-    "reserves0()": FunctionFragment;
-    "reserves1()": FunctionFragment;
+    "shares(address)": FunctionFragment;
+    "swapToken0(uint256)": FunctionFragment;
+    "swapToken1(uint256)": FunctionFragment;
     "token0()": FunctionFragment;
     "token1()": FunctionFragment;
-    "totalLiquidity()": FunctionFragment;
+    "totalShares()": FunctionFragment;
+    "totalToken0()": FunctionFragment;
+    "totalToken1()": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
+  encodeFunctionData(functionFragment: "PRECISION", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "calculateAddLiquidityRatio",
-    values: [BigNumberish, BigNumberish, boolean]
+    functionFragment: "getEquivalentToken0Estimate",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "deposit",
-    values: [BigNumberish, BigNumberish, boolean]
+    functionFragment: "getEquivalentToken1Estimate",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getPoolDetails",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getSwapToken0Estimate",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getSwapToken0EstimateGivenToken1",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getSwapToken1Estimate",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getSwapToken1EstimateGivenToken0",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getWithdrawEstimate",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "initialize",
     values: [string, string]
   ): string;
+  encodeFunctionData(functionFragment: "k", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "provide",
+    values: [BigNumberish, BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "registry", values?: undefined): string;
-  encodeFunctionData(functionFragment: "reserves0", values?: undefined): string;
-  encodeFunctionData(functionFragment: "reserves1", values?: undefined): string;
+  encodeFunctionData(functionFragment: "shares", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "swapToken0",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "swapToken1",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "token0", values?: undefined): string;
   encodeFunctionData(functionFragment: "token1", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "totalLiquidity",
+    functionFragment: "totalShares",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalToken0",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalToken1",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -61,20 +116,58 @@ interface DEXTokenPoolInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
 
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "PRECISION", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "calculateAddLiquidityRatio",
+    functionFragment: "getEquivalentToken0Estimate",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getEquivalentToken1Estimate",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getPoolDetails",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSwapToken0Estimate",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSwapToken0EstimateGivenToken1",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSwapToken1Estimate",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSwapToken1EstimateGivenToken0",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getWithdrawEstimate",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "k", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "provide", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "registry", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "reserves0", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "reserves1", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "shares", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "swapToken0", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "swapToken1", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token0", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token1", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "totalLiquidity",
+    functionFragment: "totalShares",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalToken0",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalToken1",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
@@ -126,26 +219,51 @@ export class DEXTokenPool extends BaseContract {
   interface: DEXTokenPoolInterface;
 
   functions: {
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    PRECISION(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    calculateAddLiquidityRatio(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
+    getEquivalentToken0Estimate(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { reqToken0: BigNumber }>;
+
+    getEquivalentToken1Estimate(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { reqToken1: BigNumber }>;
+
+    getPoolDetails(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber]>;
+
+    getSwapToken0Estimate(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amountToken1: BigNumber }>;
+
+    getSwapToken0EstimateGivenToken1(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amountToken0: BigNumber }>;
+
+    getSwapToken1Estimate(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amountToken0: BigNumber }>;
+
+    getSwapToken1EstimateGivenToken0(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amountToken1: BigNumber }>;
+
+    getWithdrawEstimate(
+      _share: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & {
-        correctedAmount0: BigNumber;
-        correctedAmount1: BigNumber;
+        amountToken0: BigNumber;
+        amountToken1: BigNumber;
       }
     >;
-
-    deposit(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
 
     initialize(
       _token0: string,
@@ -153,44 +271,89 @@ export class DEXTokenPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    k(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    provide(
+      _amountToken0: BigNumberish,
+      _amountToken1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     registry(overrides?: CallOverrides): Promise<[string]>;
 
-    reserves0(overrides?: CallOverrides): Promise<[BigNumber]>;
+    shares(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    reserves1(overrides?: CallOverrides): Promise<[BigNumber]>;
+    swapToken0(
+      _amountToken0: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    swapToken1(
+      _amountToken1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     token0(overrides?: CallOverrides): Promise<[string]>;
 
     token1(overrides?: CallOverrides): Promise<[string]>;
 
-    totalLiquidity(overrides?: CallOverrides): Promise<[BigNumber]>;
+    totalShares(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalToken0(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalToken1(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     withdraw(
-      liquidityAmount: BigNumberish,
+      _share: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
 
-  calculateAddLiquidityRatio(
-    amount0: BigNumberish,
-    amount1: BigNumberish,
-    token0IsPriority: boolean,
+  getEquivalentToken0Estimate(
+    _amountToken1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getEquivalentToken1Estimate(
+    _amountToken0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getPoolDetails(
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber, BigNumber]>;
+
+  getSwapToken0Estimate(
+    _amountToken0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getSwapToken0EstimateGivenToken1(
+    _amountToken1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getSwapToken1Estimate(
+    _amountToken1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getSwapToken1EstimateGivenToken0(
+    _amountToken0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getWithdrawEstimate(
+    _share: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & {
-      correctedAmount0: BigNumber;
-      correctedAmount1: BigNumber;
+      amountToken0: BigNumber;
+      amountToken1: BigNumber;
     }
   >;
-
-  deposit(
-    amount0: BigNumberish,
-    amount1: BigNumberish,
-    token0IsPriority: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
 
   initialize(
     _token0: string,
@@ -198,47 +361,87 @@ export class DEXTokenPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  k(overrides?: CallOverrides): Promise<BigNumber>;
+
+  provide(
+    _amountToken0: BigNumberish,
+    _amountToken1: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   registry(overrides?: CallOverrides): Promise<string>;
 
-  reserves0(overrides?: CallOverrides): Promise<BigNumber>;
+  shares(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  reserves1(overrides?: CallOverrides): Promise<BigNumber>;
+  swapToken0(
+    _amountToken0: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  swapToken1(
+    _amountToken1: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   token0(overrides?: CallOverrides): Promise<string>;
 
   token1(overrides?: CallOverrides): Promise<string>;
 
-  totalLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
+  totalShares(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalToken0(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalToken1(overrides?: CallOverrides): Promise<BigNumber>;
 
   withdraw(
-    liquidityAmount: BigNumberish,
+    _share: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
 
-    calculateAddLiquidityRatio(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
+    getEquivalentToken0Estimate(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getEquivalentToken1Estimate(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getPoolDetails(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber]>;
+
+    getSwapToken0Estimate(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getSwapToken0EstimateGivenToken1(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getSwapToken1Estimate(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getSwapToken1EstimateGivenToken0(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getWithdrawEstimate(
+      _share: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & {
-        correctedAmount0: BigNumber;
-        correctedAmount1: BigNumber;
-      }
-    >;
-
-    deposit(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & {
-        correctAmount0: BigNumber;
-        correctAmount1: BigNumber;
+        amountToken0: BigNumber;
+        amountToken1: BigNumber;
       }
     >;
 
@@ -248,87 +451,173 @@ export class DEXTokenPool extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    k(overrides?: CallOverrides): Promise<BigNumber>;
+
+    provide(
+      _amountToken0: BigNumberish,
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     registry(overrides?: CallOverrides): Promise<string>;
 
-    reserves0(overrides?: CallOverrides): Promise<BigNumber>;
+    shares(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    reserves1(overrides?: CallOverrides): Promise<BigNumber>;
+    swapToken0(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    swapToken1(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     token0(overrides?: CallOverrides): Promise<string>;
 
     token1(overrides?: CallOverrides): Promise<string>;
 
-    totalLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
+    totalShares(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalToken0(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalToken1(overrides?: CallOverrides): Promise<BigNumber>;
 
     withdraw(
-      liquidityAmount: BigNumberish,
+      _share: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+      [BigNumber, BigNumber] & {
+        amountToken0: BigNumber;
+        amountToken1: BigNumber;
+      }
     >;
   };
 
   filters: {};
 
   estimateGas: {
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    PRECISION(overrides?: CallOverrides): Promise<BigNumber>;
 
-    calculateAddLiquidityRatio(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
+    getEquivalentToken0Estimate(
+      _amountToken1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    deposit(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    getEquivalentToken1Estimate(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getPoolDetails(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getSwapToken0Estimate(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getSwapToken0EstimateGivenToken1(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getSwapToken1Estimate(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getSwapToken1EstimateGivenToken0(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getWithdrawEstimate(
+      _share: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     initialize(
       _token0: string,
       _token1: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    k(overrides?: CallOverrides): Promise<BigNumber>;
+
+    provide(
+      _amountToken0: BigNumberish,
+      _amountToken1: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     registry(overrides?: CallOverrides): Promise<BigNumber>;
 
-    reserves0(overrides?: CallOverrides): Promise<BigNumber>;
+    shares(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    reserves1(overrides?: CallOverrides): Promise<BigNumber>;
+    swapToken0(
+      _amountToken0: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    swapToken1(
+      _amountToken1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     token0(overrides?: CallOverrides): Promise<BigNumber>;
 
     token1(overrides?: CallOverrides): Promise<BigNumber>;
 
-    totalLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
+    totalShares(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalToken0(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalToken1(overrides?: CallOverrides): Promise<BigNumber>;
 
     withdraw(
-      liquidityAmount: BigNumberish,
+      _share: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    balanceOf(
-      arg0: string,
+    PRECISION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getEquivalentToken0Estimate(
+      _amountToken1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    calculateAddLiquidityRatio(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
+    getEquivalentToken1Estimate(
+      _amountToken0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    deposit(
-      amount0: BigNumberish,
-      amount1: BigNumberish,
-      token0IsPriority: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    getPoolDetails(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getSwapToken0Estimate(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getSwapToken0EstimateGivenToken1(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getSwapToken1Estimate(
+      _amountToken1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getSwapToken1EstimateGivenToken0(
+      _amountToken0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getWithdrawEstimate(
+      _share: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     initialize(
@@ -337,20 +626,43 @@ export class DEXTokenPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    k(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    provide(
+      _amountToken0: BigNumberish,
+      _amountToken1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     registry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    reserves0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    shares(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    reserves1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    swapToken0(
+      _amountToken0: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    swapToken1(
+      _amountToken1: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     token0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     token1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    totalLiquidity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    totalShares(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalToken0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalToken1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdraw(
-      liquidityAmount: BigNumberish,
+      _share: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

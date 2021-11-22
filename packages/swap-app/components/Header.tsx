@@ -42,7 +42,7 @@ export const Header = () => {
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
-            <Stack direction={"row"} spacing={4}>
+            <Stack direction={"row"} spacing={8}>
               <Box>
                 <Link
                   as={NextLink}
@@ -52,6 +52,30 @@ export const Header = () => {
                   fontWeight={500}
                 >
                   Swap
+                </Link>
+              </Box>
+
+              <Box>
+                <Link
+                  as={NextLink}
+                  p={2}
+                  href="/faucet"
+                  fontSize={"sm"}
+                  fontWeight={500}
+                >
+                  Faucet
+                </Link>
+              </Box>
+
+              <Box>
+                <Link
+                  as={NextLink}
+                  p={2}
+                  href="/pool"
+                  fontSize={"sm"}
+                  fontWeight={500}
+                >
+                  Pool
                 </Link>
               </Box>
             </Stack>

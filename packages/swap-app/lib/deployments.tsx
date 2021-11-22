@@ -3,7 +3,7 @@ import { createContext, FC } from "react";
 import deployments from "deployments.json";
 
 const availableContracts = deployments[1337].localhost.contracts;
-type DeploymentContracts = keyof typeof availableContracts;
+export type DeploymentContracts = keyof typeof availableContracts;
 
 export type ExportedDeploymentContract = {
   address: string;
